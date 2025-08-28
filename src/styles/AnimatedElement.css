@@ -1,0 +1,18 @@
+/* Clases de animación usadas por AnimatedElement (delegan a keyframes globales) */
+.animate-fade-in { animation: fadeIn 0.6s ease-out; }
+.animate-fade-in-up { animation: fadeInUp 0.6s ease-out; }
+.animate-slide-in-right { animation: slideInRight 0.5s ease-out; }
+.animate-slide-in-left { animation: slideInLeft 0.5s ease-out; }
+.animate-scale-in { animation: scaleIn 0.4s ease-out; }
+.animate-bounce-in { animation: bounceIn 0.6s ease-out; }
+.fade-in-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+.fade-in-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+/* Delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+

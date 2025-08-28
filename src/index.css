@@ -1,0 +1,1244 @@
+/*Reset y estilos base*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  
+  /* Variables CSS personalizadas */
+  :root {
+    --primary-color: #1a1a1a;
+    --secondary-color: #666666;
+    --button-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-color: #007AFF;
+    --hover-color: #007bff2d;
+    --success-color: #34C759;
+    --warning-color: #FF9500;
+    --danger-color: #FF3B30;
+    --background-color: #ffffff;
+    --card-background: #f8f9fa;
+    --border-color: #e1e5e9;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --border-radius-small: 8px;
+  }
+  
+  /* Estilos para móviles */
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  /* Header */
+  .header {
+    background: var(--background-color);
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+  }
+  
+  .header .date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary-color);
+    font-size: 16px;
+  }
+  
+  .header .date svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Tarjetas de estadísticas */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+  
+  .stat-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+  }
+  
+  .stat-card .number {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+  }
+  
+  .stat-card .label {
+    font-size: 14px;
+    color: var(--secondary-color);
+    font-weight: 500;
+  }
+  
+  .stat-card .icon {
+    margin-bottom: 12px;
+  }
+  
+  .stat-card .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  
+  .stat-card .status-dot.orange { background-color: var(--warning-color); }
+  .stat-card .status-dot.green { background-color: var(--success-color); }
+  .stat-card .status-dot.blue { background-color: var(--accent-color); }
+  
+  /* Sección de turnos */
+  .turnos-section {
+    padding: 0 16px 20px;
+  }
+  
+  .turnos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .turnos-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .turnos-header .ver-mas {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  /* Lista de turnos */
+  .turnos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .turno-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+  }
+  
+  .turno-card .turno-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  
+  .turno-card .hora {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .turno-card .hora svg {
+    width: 18px;
+    height: 18px;
+    color: var(--secondary-color);
+  }
+  
+  .turno-card .cliente {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+  }
+  
+  .turno-card .cliente svg {
+    width: 16px;
+    height: 16px;
+    color: var(--secondary-color);
+  }
+  
+  .turno-card .telefono {
+    font-size: 14px;
+    color: var(--secondary-color);
+    margin-bottom: 12px;
+  }
+  
+  .turno-card .whatsapp {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-small);
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+  
+  .turno-card .whatsapp svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Pantalla de login */
+   .login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-color);
+    padding: 20px;
+  }
+  
+  .login-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 32px 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .login-card h2 {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 32px;
+  }
+  
+  body > *:not(.login-container) .form-group {
+    margin-bottom: 24px;
+  }
+  
+  body > *:not(.login-container) .form-group label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+  }
+  
+  body > *:not(.login-container) .form-group input {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    background: transparent;
+    font-size: 16px;
+    color: var(--primary-color);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  body > *:not(.login-container) .form-group input:focus {
+    border-bottom-color: var(--accent-color);
+  }
+  
+  body > *:not(.login-container) .login-button {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 16px;
+  }
+  
+  body > *:not(.login-container) .login-button:hover {
+    background: #333;
+  }
+  
+  .secondary-button {
+    width: 100%;
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .secondary-button:hover {
+    background: var(--primary-color);
+    color: white;
+  } 
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    .stats-grid {
+      gap: 12px;
+      padding: 16px;
+    }
+    
+    .stat-card {
+      padding: 16px;
+    }
+    
+    .stat-card .number {
+      font-size: 28px;
+    }
+    
+    .turno-card {
+      padding: 14px;
+    }
+    
+    .login-card {
+      padding: 24px 20px;
+    }
+  }
+  
+  /* Estados de turnos */
+  .turno-estado {
+    padding: 4px 8px;
+    border-radius: var(--border-radius-small);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .turno-estado.pendiente {
+    background: #fff3cd;
+    color: #856404;
+  }
+  
+  .turno-estado.confirmado {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .turno-estado.completado {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  .turno-estado.cancelado {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  
+  /* Estilos para el calendario mensual */
+   .monthly-calendar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+  }
+  
+  .monthly-calendar-container {
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .calendar-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .calendar-title h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--border-radius-small);
+    transition: background-color 0.2s;
+  }
+  
+  .close-button:hover {
+    background: var(--card-background);
+  }
+  
+  .month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .nav-button {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--border-radius-small);
+    transition: background-color 0.2s;
+  }
+  
+  .nav-button:hover {
+    background: var(--card-background);
+  }
+  
+  .current-month {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: capitalize;
+  }
+  
+  .calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--secondary-color);
+  }
+  
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+  }
+  
+  .legend-color.sin-turnos {
+    background: #f8f9fa;
+  }
+  
+  .legend-color.con-turnos-disponible {
+    background: #e3f2fd;
+  }
+  
+  .legend-color.completo {
+    background: #ffebee;
+  }
+  
+  .calendar-grid {
+    padding: 20px;
+  }
+  
+  .calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .weekday {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-color);
+    padding: 8px;
+  }
+  
+  .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  
+  .calendar-day {
+    aspect-ratio: 1;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    background: var(--background-color);
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .calendar-day:hover:not(:disabled) {
+    background: var(--card-background);
+    transform: scale(1.05);
+  }
+  
+  .calendar-day.other-month {
+    color: var(--border-color);
+    background: #fafafa;
+    cursor: not-allowed;
+  }
+  
+  .calendar-day.today {
+    border-color: var(--accent-color);
+    background: var(--accent-color);
+    color: white;
+    font-weight: 600;
+  }
+  
+  .calendar-day.sin-turnos {
+    background: #f8f9fa;
+  }
+  
+  .calendar-day.con-turnos-disponible {
+    background: #e3f2fd;
+    border-color: #2196f3;
+  }
+  
+  .calendar-day.completo {
+    background: #ffebee;
+    border-color: #f44336;
+  }
+  
+  .loading-calendar {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--secondary-color);
+  }
+  
+  Modal de detalles del día
+  .day-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    padding: 16px;
+  }
+  
+  .day-details-content {
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .day-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .day-details-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .close-details {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--border-radius-small);
+    transition: background-color 0.2s;
+  }
+  
+  .close-details:hover {
+    background: var(--card-background);
+  }
+  
+  .no-turnos-day {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--secondary-color);
+  }
+  
+  .turnos-list-day {
+    padding: 20px;
+  }
+  
+  .turno-item-day {
+    background: var(--card-background);
+    border-radius: var(--border-radius-small);
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+  }
+  
+  .turno-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+  }
+  
+  .turno-client {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+  }
+  
+  .turno-service {
+    font-size: 14px;
+    color: var(--secondary-color);
+    margin-bottom: 12px;
+  }
+  
+  .turno-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .turno-status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .turno-status.pendiente {
+    background: #fff3cd;
+    color: #856404;
+  }
+  
+  .turno-status.confirmado {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  .turno-status.completado {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .turno-status.cancelado {
+    background: #f8d7da;
+    color: #721c24;
+  }
+  
+  .whatsapp-small {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .whatsapp-small:hover {
+    background: #128c7e;
+  }
+  
+   Botón ver más
+  .ver-mas-button {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .ver-mas-button:hover {
+    color: #0056b3;
+  }
+  
+  /* Responsive para PC */
+  @media (min-width: 768px) {
+    .monthly-calendar-container {
+      max-width: 800px;
+    }
+    
+    .calendar-legend {
+      justify-content: space-around;
+    }
+    
+    .calendar-day {
+      font-size: 16px;
+    }
+    
+    .day-details-content {
+      max-width: 600px;
+    }
+    
+    .turno-item-day {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+    
+    .turno-actions {
+      justify-content: flex-end;
+      gap: 12px;
+    }
+  }
+  
+  /* Animaciones y transiciones globales */
+  * {
+    transition: all 0.3s ease;
+  }
+  
+  /* Animación de entrada para elementos */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Clases de animación */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+  
+  /* Animaciones para el header */
+  .header {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  /* Animaciones para las tarjetas de estadísticas */
+  .stats-grid {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  
+  .stat-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .stat-card:nth-child(1) { animation: bounceIn 0.6s ease-out 0.3s both; }
+  .stat-card:nth-child(2) { animation: bounceIn 0.6s ease-out 0.4s both; }
+  .stat-card:nth-child(3) { animation: bounceIn 0.6s ease-out 0.5s both; }
+  .stat-card:nth-child(4) { animation: bounceIn 0.6s ease-out 0.6s both; }
+  
+  /* Animaciones para la sección de turnos */
+  .turnos-section {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+  
+  .turnos-header {
+    animation: slideInRight 0.6s ease-out 0.5s both;
+  }
+  
+  /* Animaciones para las tarjetas de turnos */
+  .turno-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.5s ease-out;
+  }
+  
+  .turno-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .turno-card.expanded {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  /* Animaciones para el modal del calendario */
+  .monthly-calendar-overlay {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .monthly-calendar-container {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  .calendar-header {
+    animation: slideInRight 0.4s ease-out;
+  }
+  
+  .month-navigation {
+    animation: fadeInUp 0.4s ease-out 0.1s both;
+  }
+  
+  .calendar-legend {
+    animation: fadeInUp 0.4s ease-out 0.2s both;
+  }
+  
+  .calendar-grid {
+    animation: fadeInUp 0.4s ease-out 0.3s both;
+  }
+  
+  /* Animaciones para los días del calendario */
+  .calendar-day {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .calendar-day:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .calendar-day.today {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Animaciones para el modal de detalles del día */
+  .day-details-modal {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .day-details-content {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  .day-details-header {
+    animation: slideInRight 0.4s ease-out;
+  }
+  
+  .turno-item-day {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.4s ease-out;
+  }
+  
+  .turno-item-day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Animaciones para los botones */
+  .btn, button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .btn:hover, button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn:active, button:active {
+    transform: translateY(0);
+  }
+  
+  .nav-button:hover {
+    transform: scale(1.1);
+    background: var(--card-background);
+  }
+  
+  .close-button:hover {
+    transform: scale(1.1);
+    background: var(--card-background);
+  }
+  
+  /* Animaciones para los estados de turnos */
+  .turno-estado {
+    transition: all 0.3s ease;
+  }
+  
+  .turno-estado:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Animaciones para el botón WhatsApp */
+  .whatsapp, .whatsapp-small {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .whatsapp:hover, .whatsapp-small:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+  
+  /* Animación de loading */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loading-spinner {
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Animación de pulso */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Animación de shake para errores */
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
+  
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  /* Animación de éxito */
+  @keyframes success {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .success-animation {
+    animation: success 0.5s ease-out;
+  }
+  
+  /* Animación de fade out */
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
+  .fade-out {
+    animation: fadeOut 0.3s ease-out;
+  }
+  
+  /* Animaciones para scroll suave */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Animación de entrada para elementos con delay */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  
+  /* Animación de hover para enlaces */
+  a {
+    transition: all 0.3s ease;
+  }
+  
+  a:hover {
+    transform: translateY(-1px);
+  }
+  
+  /* Animación para elementos que aparecen en scroll */
+  .fade-in-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  
+  .fade-in-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Animación de carga para formularios */
+  .form-loading {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .form-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: loading 1.5s infinite;
+  }
+  
+  @keyframes loading {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  /* Animaciones para el login */
+  .login-container {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .login-form {
+    animation: scaleIn 0.6s ease-out 0.2s both;
+  }
+  
+  /* Animaciones para los inputs (excepto en componentes específicos) */
+  body > *:not(.login-container) input, 
+  body > *:not(.login-container) select, 
+  body > *:not(.login-container) textarea {
+    transition: all 0.3s ease;
+  }
+  
+  body > *:not(.login-container) input:focus, 
+  body > *:not(.login-container) select:focus, 
+  body > *:not(.login-container) textarea:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  }
+  
+  /* Animación para el contenedor de error */
+  .error-container {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  /* Animación para el botón de reintentar */
+  .retry-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .retry-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Animación para el contenedor de carga */
+  .loading-container {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* Animación para el icono de error */
+  .error-container svg {
+    animation: bounceIn 0.6s ease-out;
+  }
+  
+  /* Animación para el ver más button */
+  .ver-mas-button {
+    transition: all 0.3s ease;
+  }
+  
+  .ver-mas-button:hover {
+    transform: translateY(-1px);
+    color: #0056b3;
+  }
+  
+  /* Animación para el no-turnos */
+  .no-turnos, .no-turnos-day {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  /* Animación para el turno expandible */
+  .turno-expandible {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .turno-expandible.show {
+    animation: fadeInUp 0.3s ease-out;
+  }
+  
+  /* Animación para el status dot */
+  .status-dot {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Animación para el icono del header */
+  .header .date svg {
+    animation: fadeIn 0.6s ease-out 0.3s both;
+  }
+  
+  /* Animación para el título del header */
+  .header h1 {
+    animation: slideInLeft 0.6s ease-out;
+  }
+  
+  /* Animación para la fecha del header */
+ .header .date span {
+    animation: slideInRight 0.6s ease-out 0.2s both;
+  } 
