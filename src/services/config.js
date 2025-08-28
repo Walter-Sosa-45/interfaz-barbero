@@ -1,8 +1,8 @@
 // Configuración de la aplicación
 export const config = {
     // URL del backend sin el prefijo de versión
-    // API_BASE_URL: import.meta.env.VITE_API_URL || 'https://servidor-gestion-turnos-prueba.onrender.com',
-    API_BASE_URL: 'http://192.168.0.102:8000',
+    API_BASE_URL: import.meta.env.VITE_API_URL || 'https://servidor-gestion-turnos-prueba.onrender.com',
+    // API_BASE_URL: 'http://192.168.0.102:8000',
     
     // Intervalo de actualización automática (en milisegundos)
     AUTO_REFRESH_INTERVAL: 5 * 60 * 1000, // 5 minutos
