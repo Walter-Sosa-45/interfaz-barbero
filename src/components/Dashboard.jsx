@@ -93,7 +93,37 @@ const Dashboard = () => {
   
         const fechaHoy = format(new Date(), 'yyyy-MM-dd');
         const turnosDelDiaResponse = await turnosService.getTurnosPorFecha(fechaHoy);
-        setTurnos(turnosDelDiaResponse.turnos || []);
+        const turnosDelDia = turnosDelDiaResponse.turnos || [];
+
+        // Procesar estado según la hora
+        await Promise.all (turnosDelDia.map(async (turno) => {
+          const [year, month, day] = turno.fecha.split('-').map(Number);
+          const [hInicio, mInicio] = turno.hora_inicio.split(':').map(Number);
+          const [hFin, mFin] = turno.hora_fin.split(':').map(Number);
+          
+          const inicio = new Date(year, month - 1, day, hInicio, mInicio);
+          const fin = new Date(year, month - 1, day, hFin, mFin);
+          const ahora = new Date();
+
+          try {
+            if (turno.estado == "pendiente" && ahora >= inicio && ahora < fin) {
+              // Turno deberia estar en CURSO
+              await turnosService.turnoEnCurso(turno.id);
+            }
+  
+            if ((turno.estado == "pendiente" || turno.estado === "en_curso") && ahora >= fin) {
+              // Turno deberia estar COMPLETO
+              await turnosService.completarTurno(turno.id);
+            }
+
+          } catch (e) {
+            console.log("Error al actualizar estado del turno:", e);
+          }
+
+          
+        }));
+
+        setTurnos(turnosDelDia);
   
         const notificacionesResponse = await turnosService.getTurnosNoNotificados();
         setNotifications(

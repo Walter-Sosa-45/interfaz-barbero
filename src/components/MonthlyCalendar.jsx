@@ -43,9 +43,10 @@ const MonthlyCalendar = ({ onClose }) => {
     } catch (error) {
       console.error('Error al cargar turnos del mes:', error);
     } finally {
-      setLoading(false);
+
+      setTimeout(() =>setLoading(false), 1000);
     }
-  };
+ };
 
   const cargarBloqueosDelMes = async () => {
     try {
@@ -132,20 +133,32 @@ const MonthlyCalendar = ({ onClose }) => {
     }
   }
 
-  const handleDateClick = async (fecha) => {
+  // const handleDateClick = async (fecha) => {
+  //   setSelectedDate(fecha);
+  //   try {
+  //     const fechaStr = format(fecha, 'yyyy-MM-dd');
+  //     const response = await turnosService.getTurnosPorFecha(fechaStr);
+  //     setSelectedDateTurnos(response.turnos || []);
+  //     const bloqueosResp = await bloqueosService.listarBloqueos({ fecha_inicio: fechaStr, fecha_fin: fechaStr });
+  //     setSelectedDateBloqueos(bloqueosResp || []);
+  //   } catch (error) {
+  //     console.error('Error al cargar turnos de la fecha:', error);
+  //     setSelectedDateTurnos([]);
+  //     setSelectedDateBloqueos([]);
+  //   }
+  // };
+
+  const handleDateClick = (fecha) => {
     setSelectedDate(fecha);
-    try {
-      const fechaStr = format(fecha, 'yyyy-MM-dd');
-      const response = await turnosService.getTurnosPorFecha(fechaStr);
-      setSelectedDateTurnos(response.turnos || []);
-      const bloqueosResp = await bloqueosService.listarBloqueos({ fecha_inicio: fechaStr, fecha_fin: fechaStr });
-      setSelectedDateBloqueos(bloqueosResp || []);
-    } catch (error) {
-      console.error('Error al cargar turnos de la fecha:', error);
-      setSelectedDateTurnos([]);
-      setSelectedDateBloqueos([]);
-    }
+  
+    // Filtrar turnos y bloqueos del mes ya cargados
+    const turnosDelDia = turnos.filter(turno => isSameDay(parseISO(turno.fecha), fecha));
+    const bloqueosDelDia = bloqueos.filter(b => isSameDay(parseISO(b.fecha), fecha));
+  
+    setSelectedDateTurnos(turnosDelDia);
+    setSelectedDateBloqueos(bloqueosDelDia);
   };
+  
 
   const cambiarMes = (direccion) => {
     setCurrentDate(prev => 
