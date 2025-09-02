@@ -224,7 +224,7 @@
   }
   
   /* Pantalla de login */
-   .login-container {
+   /* .login-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -313,10 +313,10 @@
   .secondary-button:hover {
     background: var(--primary-color);
     color: white;
-  } 
+  }  */
   
   /* Responsive */
-  @media (max-width: 480px) {
+  /* @media (max-width: 480px) {
     .stats-grid {
       gap: 12px;
       padding: 16px;
@@ -338,9 +338,9 @@
       padding: 24px 20px;
     }
   }
-  
+   */
   /* Estados de turnos */
-  .turno-estado {
+  /* .turno-estado {
     padding: 4px 8px;
     border-radius: var(--border-radius-small);
     font-size: 12px;
@@ -367,9 +367,9 @@
     background: #f8d7da;
     color: #721c24;
   }
-  
+   */
   /* Estilos para el calendario mensual */
-   .monthly-calendar-overlay {
+   /* .monthly-calendar-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -729,10 +729,10 @@
   
   .ver-mas-button:hover {
     color: #0056b3;
-  }
+  } */
   
   /* Responsive para PC */
-  @media (min-width: 768px) {
+  /* @media (min-width: 768px) {
     .monthly-calendar-container {
       max-width: 800px;
     }
@@ -761,7 +761,7 @@
       gap: 12px;
     }
   }
-  
+   */
   /* Animaciones y transiciones globales */
   * {
     transition: all 0.3s ease;

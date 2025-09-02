@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import turnosService from '../services/api'
-import { turnosService, serviciosService } from '../services/api'
+import { turnosService, serviciosService } from '../services/api';
+import { validateName, validateDigits } from '../utils/validations';
 import '../styles/BookingSection.css';
 
 
@@ -228,10 +229,36 @@ function BookingSection({ isVisible, onClose }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+  const [formErrors, setFormErrors] = useState({
+  name: '',
+  lastName: '',
+  phone: ''
+});
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  
+  // Validaciones según campo
+  let error = '';
+
+  if (name === 'name') {    
+    error = validateName(value, 50);
   }
+
+  if (name === 'lastName') {
+    error = validateName(value, 30);
+  }
+
+  if (name === 'phone') {
+    error = validateDigits(value, 15);
+  }
+
+  setFormErrors(prev => ({ ...prev, [name]: error }));
+  setFormData(prev => ({ ...prev, [name]: value }));
+
+};
+
+
   const handleDateSelect = (date) => {
     setSelectedDate(date)
     setFormData(prev => ({ ...prev, date: date.toISOString().split('T')[0] }))
@@ -294,10 +321,15 @@ function BookingSection({ isVisible, onClose }) {
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: return selectedDate !== null
-      case 2: return selectedTime !== ''
-      case 3: return formData.name && formData.lastName && formData.phone
-      default: return false
+      case 1: 
+        return selectedDate !== null
+      case 2: 
+        return selectedTime !== ''
+      case 3: 
+        return formData.name && formData.lastName && formData.phone &&
+             !formErrors.name && !formErrors.lastName && !formErrors.phone;
+      default: 
+        return false
     }
   }
 
@@ -342,9 +374,33 @@ function BookingSection({ isVisible, onClose }) {
           {currentStep === 2 && <TimeSelector selectedDate={selectedDate} selectedTime={selectedTime} onTimeSelect={handleTimeSelect} />}
           {currentStep === 3 && (
             <form onSubmit={handleSubmit} className="booking-form-agendar">
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Nombre" required />
-              <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} placeholder="Apellido" required />
-              <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Teléfono" required />
+              <input 
+                type="text" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleInputChange}
+                placeholder="Nombre" 
+                required 
+              />
+              {formErrors.name && <div className="form-error-agendar">{formErrors.name}</div>}
+              <input
+                type="text" 
+                name="lastName" 
+                value={formData.lastName} 
+                onChange={handleInputChange}
+                placeholder="Apellido" 
+                required 
+              />
+              {formErrors.lastName && <div className="form-error-agendar">{formErrors.lastName}</div>}
+              <input 
+                type="tel" 
+                name="phone" 
+                value={formData.phone} 
+                onChange={handleInputChange} 
+                placeholder="Teléfono" 
+                required 
+              />
+              {formErrors.phone && <div className="form-error-agendar">{formErrors.phone}</div>}
               <select name="service" value={formData.service} onChange={handleInputChange} required>
                 <option value="">Seleccione un servicio</option>
                 {servicios.map(s => <option key={s.id} value={s.nombre}>{s.nombre} - ${(s.precio / 100).toFixed(2)}</option>)}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Lock } from 'lucide-react';
+import { User, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
 
@@ -9,6 +9,8 @@ const Login = () => {
     usuario: '',
     password: ''
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -86,7 +88,7 @@ const Login = () => {
             <div className="input-wrapper">
               <Lock className="input-icon" />
               <input
-                type="password"
+                type={showPassword ? "text": "password"} 
                 id="password"
                 name="password"
                 value={formData.password}
@@ -95,9 +97,16 @@ const Login = () => {
                 required
                 disabled={loading}
               />
+              <button
+                type="button"
+                className="eye-button"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex={-1} // para que no rompa la navegación con tab
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
           </div>
-
           <button 
             type="submit" 
             className="login-button"

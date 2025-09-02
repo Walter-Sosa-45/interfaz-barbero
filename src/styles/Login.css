@@ -55,6 +55,19 @@
     height: 20px;
     z-index: 1;
   }
+
+  .eye-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  color: #555;
+}
+
+.eye-button:hover {
+  color: #000;
+}
   
   .form-group input {
     width: 100%;

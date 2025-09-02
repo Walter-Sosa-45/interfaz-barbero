@@ -1,6 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { X, Lock, Calendar, Clock, MessageSquare, Unlock } from 'lucide-react';
 import { bloqueosService } from '../services/api';
+import { validateText } from '../utils/validations';
+import { isFormValid } from '../utils/formValidations';
+import { hayTurnosPendientes } from '../utils/turno';
 import '../styles/BloqueoModal.css';
 
 const generarHorarios = () => {
@@ -20,8 +23,16 @@ const generarHorarios = () => {
   return horarios;
 };
 
-const BloqueoModal = ({ onClose, onCreated }) => {
+
+const getToday = () => new Date().toISOString().slice(0, 10);
+const getCurrentTime = () => new Date().toTimeString().slice(0, 5);
+
+const BloqueoModal = ({ show, onClose, onCreated }) => {
   const horarios = useMemo(() => generarHorarios(), []);
+  
+  const today = getToday();
+  const [currentTime, setCurrentTime] = useState(getCurrentTime());
+
   const [form, setForm] = useState({
     fecha: new Date().toISOString().slice(0, 10),
     todo_dia: true,
@@ -34,9 +45,27 @@ const BloqueoModal = ({ onClose, onCreated }) => {
   const [bloqueosExistentes, setBloqueosExistentes] = useState([]);
   const [verificandoBloqueos, setVerificandoBloqueos] = useState(false);
 
+  
+  const horariosDisponibles = useMemo(() => {
+    if (form.fecha === today){
+      return horarios.filter(h => h >= currentTime); // Solo horarios futuros
+    }
+    return horarios;
+  }, [form.fecha, today, currentTime, horarios]);
+
+  const [formErrors, setFormErrors] = useState({ motivo: "" });
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
+    
     setForm((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+
+    if (name === "motivo") {
+      const errorMsg = validateText(value, 100);
+      setFormErrors((prev) => ({ ...prev, motivo: errorMsg }));
+    }
+
     if (error) setError('');
     
     // Si cambió la fecha, verificar bloqueos existentes
@@ -72,10 +101,61 @@ const BloqueoModal = ({ onClose, onCreated }) => {
     }
   };
 
-  // Verificar bloqueos al cargar el modal
+  // Intervalo de la hora actual (se monta un vez)
   useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(getCurrentTime());
+    }, 60000);
+
+    return () => clearInterval(timer); //Limpieza
+  },[]);
+
+  useEffect(() => {
+  const verificarTurnos = async () => {
+    if (!form.fecha) return;
+
+    try {
+      const tienePendientes = await hayTurnosPendientes(
+        form.fecha,
+        form.todo_dia ? null : form.hora_inicio,
+        form.todo_dia ? null : form.hora_fin
+      );
+
+      if (tienePendientes) {
+        setError('⚠️ Hay turnos pendientes en la fecha o rango horario seleccionado. Deben cancelarse antes de bloquear.');
+      } else {
+        setError('');
+      }
+    } catch (err) {
+      console.error('Error verificando turnos pendientes:', err);
+    }
+  };
+
+  verificarTurnos();
+  }, [form.fecha, form.hora_inicio, form.hora_fin, form.todo_dia]);
+
+  // Logica de validacion al cambiar la fecha
+  useEffect(() => {
+    // Cada vez que cambia la fecha se aplica la logica
+    if (form.fecha){
+      if (form.fecha < today) {
+        // fecha pasada -> Bloqueo
+        setError ("No se pueden crear bloqueos en fechas pasadas");
+      }else if (form.fecha === today) {
+        // Solo Bloqueos parciales, imposible todo el dia
+        setForm((prev) => ({
+          ...prev,
+          todo_dia: false,
+        }));
+      } else {
+        // futuro -> perimitar ambos
+        // No se forza nada, el barbero puede elegir  
+        setError(""); // liempiar el error si lo había
+      }
+    }
+
     verificarBloqueosExistentes(form.fecha);
-  }, []);
+  }, [form.fecha]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -180,6 +260,7 @@ const BloqueoModal = ({ onClose, onCreated }) => {
                   name="todo_dia"
                   checked={form.todo_dia}
                   onChange={handleChange}
+                  disabled={form.fecha === today} // Hoy no se puede bloquear todo el día
                 />
                 <Lock size={16} />
                 Bloquear todo el día
@@ -243,7 +324,7 @@ const BloqueoModal = ({ onClose, onCreated }) => {
                   Desde
                 </label>
                 <select name="hora_inicio" value={form.hora_inicio} onChange={handleChange}>
-                  {horarios.map((h) => (
+                  {horariosDisponibles.map((h) => (
                     <option key={h} value={h}>{h}</option>
                   ))}
                 </select>
@@ -254,7 +335,7 @@ const BloqueoModal = ({ onClose, onCreated }) => {
                   Hasta
                 </label>
                 <select name="hora_fin" value={form.hora_fin} onChange={handleChange}>
-                  {horarios.map((h) => (
+                  {horariosDisponibles.map((h) => (
                     <option key={h} value={h}>{h}</option>
                   ))}
                 </select>
@@ -274,6 +355,9 @@ const BloqueoModal = ({ onClose, onCreated }) => {
               value={form.motivo}
               onChange={handleChange}
             />
+            {formErrors.motivo && (
+              <div className='error-messaje'>{ formErrors.motivo}</div>
+            )}
           </div>
 
           {error && <div className="error-message">{error}</div>}
@@ -282,7 +366,17 @@ const BloqueoModal = ({ onClose, onCreated }) => {
             <button type="button" className="secondary-button" onClick={onClose} disabled={loading}>
               Cancelar
             </button>
-            <button type="submit" className="primary-button" disabled={loading}>
+            <button 
+            type="submit" 
+            className="primary-button" 
+            disabled= {
+              !isFormValid(
+                form, formErrors, 
+                ["fecha", 
+                  ...(form.todo_dia ? [] : ["hora_inicio", "hora_fin"]),
+                ])
+              }
+            >
               {loading ? 'Guardando…' : 'Guardar bloqueo'}
             </button>
           </div>
